@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>考研家教-注册页</title>
+    <style type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background:#019875;
+            overflow:hidden;
+        }
+        .wrapper{
+            width:540px;
+            margin:0 auto;
+            color:#777;
+            font-size:16px;
+            padding-top:80px;
+        }
+        .loginBox{
+            min-height:150px;
+            background:#eafffd;
+            padding:40px;
+            overflow:hidden;
+        }
+        #submitLogin{
+            width:155px;
+            height:46px;
+            font-size:16px;
+            line-height:46px;
+            clear:both;
+            float:left;
+            background:#019875;
+            color:#fff;
+            border:none;
+            text-align:center;
+        }
+        #submitLogin:hover{
+            background:#00694e;
+        }
+        #loginForm input#email{
+            width:296px;
+            font-size:16px;
+            color:#777;
+            border:none;
+        }
+        #loginForm input#password{
+            width:296px;
+            font-size:16px;
+            color:#777;
+            border:none;
+        }
+        #loginForm input:focus{
+            border:2px solid #fff;
+            -webkit-box-shadow: 0px 0px 4px #b5f0e7;                     -moz-box-shadow: 0px 0px 4px #b5f0e7;
+            box-shadow: 0px 0px 4px #b5f0e7;
+        }
+        #password,#email{
+            border:2px solid #f1f1f1;
+            outline:none;
+            font:20px/32px "微软雅黑","宋体",Arial;
+            width: 600px;
+            height: 30px;
+            padding: 6px 10px;
+            margin-top:20px;
+            transition:border 0.2s ease-in 0s;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="loginBox">
+        <div id="loginForm">
+            <p><input type="text" id="email" name="email" tabindex="1" placeholder="请输入常用邮箱地址"></p>
+            <p><input type="password" id="password" name="password" tabindex="2" placeholder="请输入密码"></p>
+            <p style="margin-top:20px;"><input type="submit" id="submitLogin" value="注 &nbsp; &nbsp; 册"></p>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="http://img1.cache.netease.com/news/newsapp1202/jquery.js"></script>
+<script type="text/javascript">
+    ;(function(){
+        var wj={
+            init:function(){
+                this.events();
+            },
+            events:function(){
+                $("#submitLogin").on("click",function(){
+                    var email=$("#email")[0].value;
+                    var password=$("#password").val();
+//                    if($("#email").val()==""){
+//                        alert("亲,email不能为空!");
+//                        return;
+//                    }
+//                    if($("#password").val()==""){
+//                        alert("亲,密码不能为空!");
+//                        return;
+//                    };
+                    alert(email);
+                    $.ajax({
+                        "type":"post",
+                        "url":"handle/register.php",
+                        "data":{
+                            "action":"register",
+                            "email":email,
+                            "password":password
+                        },
+                        "dataType":"json",
+                        "success":function(data){
+                            if(data){
+                                if(data["code"]==200){
+                                    alert(3);
+                                }else if(data["code"]==401){
+                                    alert("您的注册名重复,换个别的吧:)");
+                                }else{
+                                    alert("注册失败!");
+                                }
+                            }
+                        },
+                        "error":function(){
+                            alert("网络错误!");
+                        }
+                    });
+                });
+            }
+        };
+        wj.init();
+    }());
+</script>
+</body>
+</html>
